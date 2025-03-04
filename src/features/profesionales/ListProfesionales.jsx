@@ -13,10 +13,11 @@ function ListProfesionales() {
       <div>
         <h1 className="text-3xl font-semibold m-5">Profesionales</h1>
 
-        <Table columns="1fr 1fr 1fr">
+        <Table columns="2fr 1fr 1fr">
           <Table.Header>
-            <div>Nombre</div>
+            <div>Nombre Completo</div>
             <div>Tipo</div>
+            <div></div>
           </Table.Header>
           <Table.Body
             data={profesionales}

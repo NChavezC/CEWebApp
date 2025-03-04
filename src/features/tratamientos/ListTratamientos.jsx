@@ -15,7 +15,7 @@ function ListTratamientos() {
 
         <Table columns="1fr 1fr 1fr 1fr">
           <Table.Header>
-            <div>Nombre y Apellido</div>
+            <div>Nombre Tratamiento</div>
             <div>Precio ($)</div>
             <div>Duración (mins)</div>
           </Table.Header>

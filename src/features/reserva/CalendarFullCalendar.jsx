@@ -23,9 +23,9 @@ const Calendar = () => {
     start: `${reserva.fecha}T${reserva.hora_inicio}`,
     end: `${reserva.fecha}T${reserva.hora_fin}`,
     backgroundColor:
-      reserva.profesional_id === "aa7e10e4-f5b5-4be5-812b-da4999c60a9f"
+      reserva.profesional_id === "0f1a69da-0c5a-40dc-acfb-97ae15ba4864"
         ? "#FF69B4" // Pink
-        : reserva.profesional_id === "37105e3e-4a72-4e10-9f5e-eb460cd817fb"
+        : reserva.profesional_id === "ad48a3f1-cbb2-49b2-a5ee-4691b0870e50"
         ? "#6495ED" // Blue
         : "#808080", // Default color (gray) for other professionals
     borderColor: "#ffffff", // Optional: White border for better contrast

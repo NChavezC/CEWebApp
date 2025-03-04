@@ -43,7 +43,10 @@ function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border rounded-lg shadow-md">
+    <form
+      onSubmit={handleSubmit}
+      className="p-4 border rounded-lg shadow-md w-[40%] mx-auto flex flex-col justify-center"
+    >
       <div className="mb-4">
         <label className="block text-sm font-medium" htmlFor="email">
           Email
@@ -76,7 +79,7 @@ function LoginForm() {
 
       <button
         type="submit"
-        className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+        className="w-[50%] py-2 px-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
         disabled={getTokenMutation.isLoading}
       >
         {getTokenMutation.isLoading ? "Login In..." : "Login"}
