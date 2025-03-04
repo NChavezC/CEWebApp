@@ -1,60 +1,81 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function getPacientes() {
-  const respuesta = await fetch("http://localhost:8000/pacientes");
-  if (!respuesta.ok) {
-    throw new Error("Error al obtener los pacientes");
+  const token = localStorage.getItem("access_token");
+
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+
+  const response = await fetch(`${API_URL}/pacientes/`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to fetch pacientes. Authentication may have failed."
+    );
   }
-  const data = await respuesta.json();
+  const data = await response.json();
   return data;
 }
 
-export async function addPaciente(data) {
-  const respuesta = await fetch("http://localhost:8000/pacientes", {
+export async function createPaciente(paciente) {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/pacientes`, {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(paciente),
   });
-
-  if (!respuesta.ok) {
-    throw new Error("Error al agregar el paciente");
+  if (!response.ok) {
+    throw new Error(
+      "Failed to create paciente. Authentication may have failed."
+    );
   }
-
-  return await respuesta.json();
+  const data = await response.json();
+  return data;
 }
 
-export async function patchPaciente(pacienteId, updatedFields) {
-  const filteredFields = Object.fromEntries(
-    Object.entries(updatedFields).filter(
-      ([_, value]) => value !== undefined && value !== ""
-    )
-  );
-  console.log(`For paciente ${pacienteId}`, filteredFields);
-  if (Object.keys(filteredFields).length === 0) {
-    throw new Error("No hay datos para actualizar");
+export async function updatePaciente(id, paciente) {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/pacientes/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(paciente),
+  });
+  if (!response.ok) {
+    throw new Error(
+      "Failed to update paciente. Authentication may have failed."
+    );
   }
-  const respuesta = await fetch(
-    `http://localhost:8000/pacientes/${pacienteId}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(filteredFields),
-    }
-  );
-  if (!respuesta.ok) {
-    throw new Error("Error al actualizar los datos del paciente");
-  }
-  return await respuesta.json();
 }
 
 export async function deletePaciente(id) {
-  const respuesta = await fetch(`http://localhost:8000/pacientes/${id}`, {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
+    },
   });
-
-  if (!respuesta.ok) {
-    throw new Error("Error al eliminar el paciente");
+  if (!response.ok) {
+    throw new Error(
+      "Failed to delete paciente. Authentication may have failed."
+    );
   }
 }

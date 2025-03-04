@@ -1,60 +1,81 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function getProfesionales() {
-  const respuesta = await fetch("http://localhost:8000/profesionales");
-  if (!respuesta.ok) {
-    throw new Error("Error al obtener los profesionales");
+  const token = localStorage.getItem("access_token");
+
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+
+  const response = await fetch(`${API_URL}/profesionales/`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to fetch profesionales. Authentication may have failed."
+    );
   }
-  const data = await respuesta.json();
+  const data = await response.json();
   return data;
 }
 
-export async function addProfesional(data) {
-  const respuesta = await fetch("http://localhost:8000/profesionales", {
+export async function createProfesional(profesional) {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/profesionales`, {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(profesional),
   });
-
-  if (!respuesta.ok) {
-    throw new Error("Error al agregar al profesional");
+  if (!response.ok) {
+    throw new Error(
+      "Failed to create profesional. Authentication may have failed."
+    );
   }
-
-  return await respuesta.json();
+  const data = await response.json();
+  return data;
 }
 
-export async function patchProfesional(profesionalId, updatedFields) {
-  const filteredFields = Object.fromEntries(
-    Object.entries(updatedFields).filter(
-      ([_, value]) => value !== undefined && value !== ""
-    )
-  );
-  console.log(`For profesional ${profesionalId}`, filteredFields);
-  if (Object.keys(filteredFields).length === 0) {
-    throw new Error("No hay datos para actualizar");
+export async function updateProfesional(id, profesional) {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/profesionales/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(profesional),
+  });
+  if (!response.ok) {
+    throw new Error(
+      "Failed to update profesional. Authentication may have failed."
+    );
   }
-  const respuesta = await fetch(
-    `http://localhost:8000/profesionales/${profesionalId}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(filteredFields),
-    }
-  );
-  if (!respuesta.ok) {
-    throw new Error("Error al actualizar los datos del profesional");
-  }
-  return await respuesta.json();
 }
 
 export async function deleteProfesional(id) {
-  const respuesta = await fetch(`http://localhost:8000/profesionales/${id}`, {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/profesionales/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
+    },
   });
-
-  if (!respuesta.ok) {
-    throw new Error("Error al eliminar al profesional");
+  if (!response.ok) {
+    throw new Error(
+      "Failed to delete profesional. Authentication may have failed."
+    );
   }
 }

@@ -23,9 +23,9 @@ const Calendar = () => {
     start: `${reserva.fecha}T${reserva.hora_inicio}`,
     end: `${reserva.fecha}T${reserva.hora_fin}`,
     backgroundColor:
-      reserva.profesional_id === "e29b64ba-d94c-45c9-afe1-d99dda4a104a"
+      reserva.profesional_id === "aa7e10e4-f5b5-4be5-812b-da4999c60a9f"
         ? "#FF69B4" // Pink
-        : reserva.profesional_id === "41ef7a1c-2496-46ff-a214-09cc51543c31"
+        : reserva.profesional_id === "37105e3e-4a72-4e10-9f5e-eb460cd817fb"
         ? "#6495ED" // Blue
         : "#808080", // Default color (gray) for other professionals
     borderColor: "#ffffff", // Optional: White border for better contrast
@@ -42,7 +42,8 @@ const Calendar = () => {
       fecha: info?.dateStr?.split("T")[0],
       hora_inicio: info?.dateStr?.split("T")[1]?.split("-")[0],
       hora_fin: "",
-      estado: "pendiente",
+      atencion: "agendada",
+      pago: "pendiente",
       mode: "add",
     });
     open("formularioReserva");
@@ -64,7 +65,8 @@ const Calendar = () => {
       fecha: reserva.fecha,
       hora_inicio: reserva.hora_inicio,
       hora_fin: reserva.hora_fin,
-      estado: reserva.estado,
+      atencion: reserva.atencion,
+      pago: reserva.pago,
       mode: "edit",
     });
 
@@ -121,7 +123,8 @@ const Calendar = () => {
                   fecha={selectedEvent?.fecha}
                   hora_inicio={selectedEvent?.hora_inicio}
                   hora_fin={selectedEvent?.hora_fin}
-                  estado={selectedEvent?.estado}
+                  atencion={selectedEvent?.atencion}
+                  pago={selectedEvent?.pago}
                   mode={selectedEvent?.mode}
                   onCloseModal={close}
                 />

@@ -13,15 +13,17 @@ function ListReservas() {
       <div>
         <h1 className="text-3xl font-semibold m-5">Reservas</h1>
 
-        <Table columns="2fr 1fr 1fr 1fr 1fr 1fr 2fr 1fr">
+        <Table columns="2fr 2fr 1fr 1fr 1fr 1fr 2fr 2fr 1fr">
           <Table.Header>
             <div>Tratamiento</div>
             <div>Fecha</div>
             <div>Hora Inicio</div>
             <div>Hora Fin</div>
-            <div>Estado</div>
+            <div>Atención</div>
+            <div>Pago</div>
             <div>Nombre Profesional</div>
             <div>Nombre Paciente</div>
+            <div></div>
           </Table.Header>
           <Table.Body
             data={reservas}

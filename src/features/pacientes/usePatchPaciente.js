@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { patchPaciente } from "../../services/pacientesServices";
+import { updatePaciente } from "../../services/pacientesServices";
 
 export const usePatchPaciente = (options = {}) => {
   return useMutation(async ({ pacienteId, updatedFields }) => {
-    return patchPaciente(pacienteId, updatedFields);
+    return updatePaciente(pacienteId, updatedFields);
   }, options);
 };

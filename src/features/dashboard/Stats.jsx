@@ -11,12 +11,6 @@ function Stats({ users, pacientes, profesionales, tratamientos, reservas }) {
   return (
     <div className="flex flex-row justify-center items-center">
       <Stat
-        icon={<HiOutlineUser />}
-        title="Usuarios"
-        value={users.length}
-        color="blue"
-      />
-      <Stat
         icon={<HiOutlineHeart />}
         title="Pacientes"
         value={pacientes.length}

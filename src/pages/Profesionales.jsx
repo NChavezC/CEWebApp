@@ -12,7 +12,7 @@ function Profesionales() {
             type="submit"
             className="w-auto py-2 px-4 my-2 mx-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
           >
-            Agregar Tratamiento
+            Agregar Profesional
           </button>
         </Modal.Open>
         <Modal.Window name="formularioProfesional">

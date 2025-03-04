@@ -10,7 +10,7 @@ function ProfesionalRow({ profesional }) {
   return (
     <>
       <Table.Row>
-        <div>{profesional.nombre}</div>
+        <div>{profesional.nombre_completo}</div>
         <div>{profesional.tipo}</div>
         <div>
           <Modal>
@@ -22,7 +22,7 @@ function ProfesionalRow({ profesional }) {
             <Modal.Window name="formularioUserEdit">
               <FormularioProfesional
                 profesionalId={profesional.id}
-                nombre={profesional.nombre}
+                nombre_completo={profesional.nombre_completo}
                 tipo={profesional.tipo}
                 mode="edit"
               />

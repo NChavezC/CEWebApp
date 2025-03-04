@@ -15,18 +15,28 @@ function ProfesionalRow({ reserva }) {
         <div>{reserva.hora_inicio}</div>
         <div>{reserva.hora_fin}</div>
         <div className="flex items-center">
-          {reserva.estado.charAt(0).toUpperCase() + reserva.estado.slice(1)}
+          {reserva.atencion.charAt(0).toUpperCase() + reserva.atencion.slice(1)}
           <span
             className={`w-4 h-4 rounded-full flex items-center justify-center shadow-lg m-1 ${
-              reserva.estado === "pendiente"
-                ? "bg-stone-600"
-                : reserva.estado === "confirmada"
-                ? "bg-green-400"
-                : "bg-red-400"
+              reserva.atencion === "agendada"
+                ? "bg-yellow-400"
+                : reserva.atencion === "confirmada"
+                ? "bg-blue-600"
+                : reserva.atencion === "espera"
+                ? "bg-red-600"
+                : "bg-green-400"
             }`}
           ></span>
         </div>
-        <div>{reserva.profesional_nombre}</div>
+        <div className="flex items-center">
+          {reserva.pago.charAt(0).toUpperCase() + reserva.pago.slice(1)}
+          <span
+            className={`w-4 h-4 rounded-full flex items-center justify-center shadow-lg m-1 ${
+              reserva.pago === "pagado" ? "bg-green-600" : "bg-gray-600"
+            }`}
+          ></span>
+        </div>
+        <div>{reserva.profesional_nombre_completo}</div>
         <div>{reserva.paciente_nombre + " " + reserva.paciente_apellido}</div>
         <div>
           <Modal>

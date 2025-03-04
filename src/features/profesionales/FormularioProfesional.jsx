@@ -5,7 +5,7 @@ import { usePatchProfesional } from "./usePatchProfesional";
 
 const FormularioProfesional = ({
   profesionalId,
-  nombre,
+  nombre_completo,
   tipo,
   mode,
   onCloseModal,
@@ -14,7 +14,7 @@ const FormularioProfesional = ({
   const addProfesionalMutation = useAddProfesional();
   const patchProfesionalMutation = usePatchProfesional();
   const [formData, setFormData] = useState({
-    nombre: nombre || "",
+    nombre_completo: nombre_completo || "",
     tipo: tipo || "enfermera",
   });
 
@@ -39,7 +39,7 @@ const FormularioProfesional = ({
         {
           profesionalId,
           updatedFields: {
-            nombre: formData.nombre,
+            nombre_completo: formData.nombre_completo,
             tipo: formData.tipo,
           },
         },
@@ -56,14 +56,14 @@ const FormularioProfesional = ({
   return (
     <form onSubmit={handleSubmit} className="p-4 border rounded-lg shadow-md">
       <div className="mb-4">
-        <label className="block text-sm font-medium" htmlFor="nombre">
+        <label className="block text-sm font-medium" htmlFor="nombre_completo">
           Nombre y Apellido
         </label>
         <input
           type="text"
-          id="nombre"
-          name="nombre"
-          value={formData.nombre}
+          id="nombre_completo"
+          name="nombre_completo"
+          value={formData.nombre_completo}
           onChange={handleChange}
           required
           className="w-full px-3 py-2 border rounded"

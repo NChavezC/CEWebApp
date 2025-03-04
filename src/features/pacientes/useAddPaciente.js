@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { addPaciente } from "../../services/pacientesServices";
+import { createPaciente } from "../../services/pacientesServices";
 
 export function useAddPaciente() {
-  return useMutation(addPaciente);
+  return useMutation(createPaciente);
 }

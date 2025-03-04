@@ -45,7 +45,7 @@ function Body({ data, render }) {
   if (!data.length)
     return (
       <p className="text-center text-lg font-medium my-6">
-        No data to show at the moment
+        No existen datos para esta tabla, de momento
       </p>
     );
 

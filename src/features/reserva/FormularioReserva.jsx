@@ -15,7 +15,8 @@ const FormularioReserva = ({
   fecha,
   hora_inicio,
   hora_fin,
-  estado,
+  atencion,
+  pago,
   mode,
   onCloseModal,
 }) => {
@@ -35,7 +36,8 @@ const FormularioReserva = ({
     fecha: fecha || "",
     hora_inicio: hora_inicio || "",
     hora_fin: hora_fin || "",
-    estado: estado || "pendiente",
+    atencion: atencion || "agendada",
+    pago: pago || "pendiente",
   });
 
   useEffect(() => {
@@ -86,7 +88,8 @@ const FormularioReserva = ({
             fecha: formData.fecha,
             hora_inicio: formData.hora_inicio,
             hora_fin: formData.hora_fin,
-            estado: formData.estado,
+            atencion: formData.atencion,
+            pago: formData.pago,
           },
         },
         {
@@ -141,7 +144,7 @@ const FormularioReserva = ({
           <option value="">Seleccione un profesional</option>
           {profesionales.map((p) => (
             <option key={p.id} value={p.id}>
-              {p.nombre}
+              {p.nombre_completo}
             </option>
           ))}
         </select>

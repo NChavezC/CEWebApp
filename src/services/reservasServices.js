@@ -1,57 +1,81 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function getReservas() {
-  const respuesta = await fetch("http://localhost:8000/reservas");
-  if (!respuesta.ok) {
-    throw new Error("Error al obtener los Reservas");
+  const token = localStorage.getItem("access_token");
+
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+
+  const response = await fetch(`${API_URL}/reservas/`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to fetch reservas. Authentication may have failed."
+    );
   }
-  const data = await respuesta.json();
+  const data = await response.json();
   return data;
 }
 
-export async function addReserva(data) {
-  const respuesta = await fetch("http://localhost:8000/reservas", {
+export async function createReserva(reserva) {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/reservas`, {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(reserva),
   });
-
-  if (!respuesta.ok) {
-    throw new Error("Error al agregar la reserva");
+  if (!response.ok) {
+    throw new Error(
+      "Failed to create reserva. Authentication may have failed."
+    );
   }
-
-  return await respuesta.json();
+  const data = await response.json();
+  return data;
 }
 
-export async function patchReserva(reservaId, updatedFields) {
-  const filteredFields = Object.fromEntries(
-    Object.entries(updatedFields).filter(
-      ([_, value]) => value !== undefined && value !== ""
-    )
-  );
-  console.log(`For reserva ${reservaId}`, filteredFields);
-  if (Object.keys(filteredFields).length === 0) {
-    throw new Error("No hay datos para actualizar");
-  }
-  const respuesta = await fetch(`http://localhost:8000/reservas/${reservaId}`, {
-    method: "PATCH",
+export async function updateReserva(id, reserva) {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/reservas/${id}`, {
+    method: "PUT",
     headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(filteredFields),
+    body: JSON.stringify(reserva),
   });
-  if (!respuesta.ok) {
-    throw new Error("Error al actualizar los datos del reserva");
+  if (!response.ok) {
+    throw new Error(
+      "Failed to update reserva. Authentication may have failed."
+    );
   }
-  return await respuesta.json();
 }
 
 export async function deleteReserva(id) {
-  const respuesta = await fetch(`http://localhost:8000/reservas/${id}`, {
+  const token = localStorage.getItem("access_token");
+  if (!token)
+    throw new Error("No access token found. User is not authenticated");
+  const response = await fetch(`${API_URL}/reservas/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`, // Attach token in Authorization header
+    },
   });
-
-  if (!respuesta.ok) {
-    throw new Error("Error al eliminar la reserva");
+  if (!response.ok) {
+    throw new Error(
+      "Failed to delete reserva. Authentication may have failed."
+    );
   }
 }

@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { patchProfesional } from "../../services/profesionalesServices";
+import { updateProfesional } from "../../services/profesionalesServices";
 
 export const usePatchProfesional = (options = {}) => {
   return useMutation(async ({ profesionalId, updatedFields }) => {
-    return patchProfesional(profesionalId, updatedFields);
+    return updateProfesional(profesionalId, updatedFields);
   }, options);
 };
